@@ -3,6 +3,7 @@ import "./App.css";
 import { CATEGORIES } from "./data";
 import Task from "./Task";
 import NewTask from "./NewTask";
+import Category from "./ Category"
 
 class App extends React.Component {
   state = {
@@ -54,11 +55,7 @@ class App extends React.Component {
   };
 
   renderCategories = () => {
-    return this.state.categories.map((cat) => (
-      <button name={cat} onClick={(e) => this.clickHandler(e)}>
-        {cat}
-      </button>
-    ));
+    return this.state.categories.map(cat => <Category cat={cat} clickHandler={this.clickHandler}/> )
   };
 
   renderTasks = () => {
