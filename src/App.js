@@ -38,24 +38,16 @@ class App extends React.Component {
       },
     ],
     categories: CATEGORIES,
-    Food: false,
-    Money: false,
-    Code: false,
-    Misc: false,
+    selectedCat: 'All'
   };
 
   clickHandler = (e) => {
-    this.setState({
-      Food: false,
-      Money: false,
-      Code: false,
-      Misc: false,
-    });
-    this.setState({ [e.target.name]: true });
+    this.setState({selectedCat: e.target.name})
   };
 
   renderCategories = () => {
-    return this.state.categories.map(cat => <Category cat={cat} clickHandler={this.clickHandler}/> )
+    console.log(this.state.categories)
+    return this.state.categories.map(cat => <Category cat={cat} clickHandler={this.clickHandler} selectedCat={this.state.selectedCat}/> )
   };
 
   renderTasks = () => {
@@ -65,25 +57,13 @@ class App extends React.Component {
   };
 
   filteredTasks = () => {
-    if (this.state.Food) {
-      let taskList = this.state.tasks.filter((t) => t.category === "Food");
-      return taskList;
-    }
-    if (this.state.Money) {
-      let taskList = this.state.tasks.filter((t) => t.category === "Money");
-      return taskList;
-    }
-    if (this.state.Code) {
-      let taskList = this.state.tasks.filter((t) => t.category === "Code");
-      return taskList;
-    }
-    if (this.state.Misc) {
-      let taskList = this.state.tasks.filter((t) => t.category === "Misc");
-      return taskList;
-    } else {
-      return this.state.tasks;
-    }
-  };
+    let selectedObj = this.state.selectedCat
+    if (selectedObj === 'All'){
+      return this.state.tasks}
+    else {
+      let taskList = this.state.tasks.filter((t) => t.category === selectedObj)
+      return taskList  }}
+    
 
   submitHandler = (object) => {
     let newObject = { text: object.taskDetails, category: object.selectedCat };
